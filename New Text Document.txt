@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            transition: background 0.4s, color 0.4s;
+            position: relative;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: rotate(360deg);
+        }
+        .theme-toggle img {
+            width: 50px; /* Increased size */
+            height: 50px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .photo-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .photo-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+        .photo-info {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border-radius: 0 0 12px 12px;
+        }
+        .photo-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .photo-desc {
+            font-size: 16px;
+            color: #ddd;
+            line-height: 1.5;
+        }
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #222;
+            color: #ddd;
+        }
+        .dark-mode h1 {
+            color: #fff;
+        }
+        .dark-mode .photo-item {
+            background: #333;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .dark-mode .photo-info {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 2px solid #ddd;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center; /* Aligns logo and text in a row */
+        }
+        .footer-logo img {
+            width: 100px;
+            height: auto;
+        }
+        .footer-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 10px; /* Adds space between logo and text */
+            color: #333;
+            text-transform: uppercase;
+        }
+        .footer-links a {
+            margin-left: 15px;
+            font-size: 18px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        /* Dark Mode Footer */
+        .dark-mode footer {
+            border-top: 2px solid #555;
+        }
+        .dark-mode .footer-text,
+        .dark-mode .footer-links a {
+            color: #ddd;
+        }
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-logo {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-text {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+            .footer-links {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>WILD SHUTTER BUGS COLLECTION</h1>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <img id="theme-icon" src="./assets/ll.png" alt="Toggle Theme">
+    </button>
+    
+    <div class="gallery">
+        <!-- Generating 35 images dynamically -->
+        <script>
+            for (let i = 1; i <= 35; i++) {
+                document.write(`
+                    <div class="photo-item">
+                        <img src="./assets/${i}.jpg" alt="Photo ${i}">
+                        <div class="photo-info">
+                            <div class="photo-title">Title of Photo ${i}</div>
+                            <div class="photo-desc">Description about this image.</div>
+                        </div>
+                    </div>
+                `);
+            }
+        </script>
+    </div>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="./assets/lg.jpg" alt="My Logo">
+            <p class="footer-text">THE WILD SHUTTER BUG</p>
+        </div>
+        <div class="footer-links">
+            <a href="https://instagram.com/yourprofile" target="_blank">Instagram</a>
+            <a href="https://github.com/yourprofile" target="_blank">GitHub</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.getElementById('theme-icon');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.src = "./assets/dl.png";
+            } else {
+                themeIcon.src = "./assets/ll.png";
+            }
+        }
+    </script>
+</body>
+</html>
